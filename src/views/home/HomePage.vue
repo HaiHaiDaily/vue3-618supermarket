@@ -13,6 +13,7 @@ import { LineChart } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
 import { getEmployeeListService, getShoppingListService } from '@/api/report'
+import { formattedDate } from '@/utils/format'
 
 echarts.use([
   TitleComponent,
@@ -147,12 +148,10 @@ const getEmployeeList = async () => {
   const end = new Date()
   // end.setDate(end.getDate() - 7)
 
-  console.log(begin.toLocaleDateString())
-  console.log(end.toLocaleDateString())
   //发送请求获得数据
   const res = await getEmployeeListService(
-    begin.toLocaleDateString(),
-    end.toLocaleDateString()
+    formattedDate(begin),
+    formattedDate(end)
   )
   dateList.value = res.data.data.dateList.split(',')
   totalEmployeeList.value = res.data.data.totalEmployeeList.split(',')
@@ -169,12 +168,10 @@ const getShoppingList = async () => {
   const end = new Date()
   // end.setDate(end.getDate() - 7)
 
-  console.log(begin.toLocaleDateString())
-  console.log(end.toLocaleDateString())
   //发送请求获得数据
   const res = await getShoppingListService(
-    begin.toLocaleDateString(),
-    end.toLocaleDateString()
+    formattedDate(begin),
+    formattedDate(end)
   )
   dateList2.value = res.data.data.dateList.split(',')
   totalShoppingList.value = res.data.data.totalShoppingList.split(',')
